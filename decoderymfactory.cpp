@@ -1,23 +1,7 @@
-/* =================================================
- * This file is part of the TTK qmmp plugin project
- * Copyright (C) 2015 - 2020 Greedysky Studio
-
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License along
- * with this program; If not, see <http://www.gnu.org/licenses/>.
- ================================================= */
-
 #include "decoderymfactory.h"
 #include "decoder_ym.h"
+
+#include <QFileInfo>
 
 bool DecoderYmFactory::canDecode(QIODevice *) const
 {
@@ -52,7 +36,7 @@ QList<TrackInfo*> DecoderYmFactory::createPlayList(const QString &path, TrackInf
     }
 
     CYmMusic *music = new CYmMusic;
-    if(!music->load(path.toLocal8Bit().constData()))
+    if(!music->load(qPrintable(path)))
     {
         delete info;
         return QList<TrackInfo*>();
@@ -74,8 +58,11 @@ QList<TrackInfo*> DecoderYmFactory::createPlayList(const QString &path, TrackInf
 
     if(parts & TrackInfo::Properties)
     {
+        info->setValue(Qmmp::BITRATE, (QFileInfo(path).size() * 8.0) / musicInfo.musicTimeInMs + 1.0f);
+        info->setValue(Qmmp::SAMPLERATE, 44100);
+        info->setValue(Qmmp::CHANNELS, 2);
+        info->setValue(Qmmp::FORMAT_NAME, "YM");
         info->setDuration(musicInfo.musicTimeInMs);
-        info->setValue(Qmmp::FORMAT_NAME, "ym");
     }
 
     delete music;
