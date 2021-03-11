@@ -2,6 +2,7 @@
 #include "decoder_ym.h"
 
 #include <QFileInfo>
+#include <QMessageBox>
 
 bool DecoderYmFactory::canDecode(QIODevice *) const
 {
@@ -74,4 +75,21 @@ MetaDataModel* DecoderYmFactory::createMetaDataModel(const QString &path, bool r
     Q_UNUSED(path);
     Q_UNUSED(readOnly);
     return nullptr;
+}
+
+void DecoderYmFactory::showSettings(QWidget *parent)
+{
+    Q_UNUSED(parent);
+}
+
+void DecoderYmFactory::showAbout(QWidget *parent)
+{
+    QMessageBox::about (parent, tr("About YM Reader Plugin"),
+                        tr("Qmmp YM Reader Plugin")+"\n"+
+                        tr("Written by: Greedysky <greedysky@163.com>"));
+}
+
+QString DecoderYmFactory::translation() const
+{
+    return QString();
 }
