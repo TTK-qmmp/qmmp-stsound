@@ -4,9 +4,16 @@
 
 #include <QMessageBox>
 
-bool DecoderStSoundFactory::canDecode(QIODevice *) const
+bool DecoderStSoundFactory::canDecode(QIODevice *input) const
 {
-    return false;
+    QFile *file = static_cast<QFile*>(input);
+    if(!file)
+    {
+        return false;
+    }
+
+    StSoundHelper helper(file->fileName());
+    return helper.initialize();
 }
 
 DecoderProperties DecoderStSoundFactory::properties() const
@@ -16,6 +23,7 @@ DecoderProperties DecoderStSoundFactory::properties() const
     properties.shortName = "stsound";
     properties.filters << "*.ym";
     properties.description = "ST-Sound, ATARI-ST Audio File";
+    properties.protocols << "file";
     properties.noInput = true;
     return properties;
 }
@@ -43,11 +51,9 @@ QList<TrackInfo*> DecoderStSoundFactory::createPlayList(const QString &path, Tra
 
     if(parts & TrackInfo::MetaData)
     {
-        const QMap<Qmmp::MetaData, QString> metaData(helper.readMetaData());
-        for(auto itr = metaData.begin(); itr != metaData.end(); ++itr)
-        {
-            info->setValue(itr.key(), itr.value());
-        }
+        info->setValue(Qmmp::TITLE, helper.title());
+        info->setValue(Qmmp::ARTIST, helper.author());
+        info->setValue(Qmmp::COMMENT, helper.comment());
     }
 
     if(parts & TrackInfo::Properties)
@@ -56,7 +62,7 @@ QList<TrackInfo*> DecoderStSoundFactory::createPlayList(const QString &path, Tra
         info->setValue(Qmmp::SAMPLERATE, helper.sampleRate());
         info->setValue(Qmmp::CHANNELS, helper.channels());
         info->setValue(Qmmp::BITS_PER_SAMPLE, helper.depth());
-        info->setValue(Qmmp::FORMAT_NAME, "StSound");
+        info->setValue(Qmmp::FORMAT_NAME, "StSound YM");
         info->setDuration(helper.totalTime());
     }
     return QList<TrackInfo*>() << info;

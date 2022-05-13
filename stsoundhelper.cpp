@@ -28,12 +28,16 @@ bool StSoundHelper::initialize()
         return false;
     }
 
-    ymMusicInfo_t info;
     if(m_music->load(qPrintable(m_path)))
     {
+        ymMusicInfo_t info;
         m_music->getMusicInfo(&info);
         m_music->setLoopMode(YMFALSE);
+
         m_length = info.musicTimeInMs;
+        m_title = QString::fromUtf8(info.pSongName);
+        m_author = QString::fromUtf8(info.pSongAuthor);
+        m_comment =  QString::fromUtf8(info.pSongComment);
     }
     else
     {
@@ -51,40 +55,18 @@ bool StSoundHelper::initialize()
 
 qint64 StSoundHelper::read(unsigned char *data, qint64 maxSize)
 {
-    qint64 stereoSize, i;
     ymsample *psample = (ymsample *)data;
-    stereoSize = maxSize / (2 * sizeof(ymsample));
+    const qint64 stereoSize = maxSize / (2 * sizeof(ymsample));
 
-    if(m_music->update(psample, stereoSize))
+    if(!m_music->update(psample, stereoSize))
     {
-        // recopy mono YM sound to 2 channels
-        for(i=stereoSize-1; i>=0; i--)
-        {
-            psample[(i * 2)    ] = psample[i];
-            psample[(i * 2) + 1] = psample[i];
-        }
-        return maxSize;
+        return 0;
     }
-    return 0;
-}
-
-QMap<Qmmp::MetaData, QString> StSoundHelper::readMetaData() const
-{
-    QMap<Qmmp::MetaData, QString> metaData;
-    if(!m_music)
+    // recopy mono YM sound to 2 channels
+    for(qint64 i = stereoSize - 1; i >= 0; --i)
     {
-        return metaData;
+        psample[(i * 2)    ] = psample[i];
+        psample[(i * 2) + 1] = psample[i];
     }
-
-    ymMusicInfo_t musicInfo;
-    m_music->getMusicInfo(&musicInfo);
-
-    char* title = strdup(musicInfo.pSongName);
-    char* composer = strdup(musicInfo.pSongAuthor);
-    char* comment = strdup(musicInfo.pSongComment);
-
-    metaData.insert(Qmmp::TITLE, QString::fromUtf8(title).trimmed());
-    metaData.insert(Qmmp::COMPOSER, QString::fromUtf8(composer).trimmed());
-    metaData.insert(Qmmp::COMMENT, QString::fromUtf8(comment).trimmed());
-    return metaData;
+    return maxSize;
 }
