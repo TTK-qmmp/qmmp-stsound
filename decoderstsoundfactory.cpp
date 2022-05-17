@@ -25,6 +25,7 @@ DecoderProperties DecoderStSoundFactory::properties() const
     properties.description = "ST-Sound, ATARI-ST Audio File";
     properties.protocols << "file";
     properties.noInput = true;
+    properties.hasAbout = true;
     return properties;
 }
 
