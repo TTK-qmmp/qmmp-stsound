@@ -82,9 +82,9 @@ void DecoderStSoundFactory::showSettings(QWidget *parent)
 
 void DecoderStSoundFactory::showAbout(QWidget *parent)
 {
-    QMessageBox::about (parent, tr("About YM Reader Plugin"),
-                        tr("Qmmp YM Reader Plugin")+"\n"+
-                        tr("Written by: Greedysky <greedysky@163.com>"));
+    QMessageBox::about(parent, tr("About YM Reader Plugin"),
+                       tr("Qmmp YM Reader Plugin") + "\n" +
+                       tr("Written by: Greedysky <greedysky@163.com>"));
 }
 
 QString DecoderStSoundFactory::translation() const
