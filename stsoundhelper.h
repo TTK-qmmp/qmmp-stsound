@@ -36,7 +36,7 @@ public:
     void deinit();
     bool initialize();
 
-    inline void seek(qint64 time) { m_music->setMusicTime((ymu32)time); }
+    inline void seek(qint64 time) { m_input->setMusicTime((ymu32)time); }
     inline qint64 totalTime() const { return m_length; }
 
     inline int bitrate() const { return 8; }
@@ -52,7 +52,7 @@ public:
 
 private:
     QString m_path;
-    CYmMusic *m_music = nullptr;
+    CYmMusic *m_input = nullptr;
     int m_length = 0;
     QString m_title;
     QString m_author;
