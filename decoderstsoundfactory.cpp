@@ -76,10 +76,18 @@ MetaDataModel* DecoderStSoundFactory::createMetaDataModel(const QString &path, b
     return nullptr;
 }
 
+#if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)
 void DecoderStSoundFactory::showSettings(QWidget *parent)
 {
     Q_UNUSED(parent);
 }
+#else
+QDialog *DecoderStSoundFactory::createSettings(QWidget *parent)
+{
+    Q_UNUSED(parent);
+    return nullptr;
+}
+#endif
 
 void DecoderStSoundFactory::showAbout(QWidget *parent)
 {
