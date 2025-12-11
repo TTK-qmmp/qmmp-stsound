@@ -21,8 +21,6 @@ SOURCES += decoderstsoundfactory.cpp \
            libstsound/ym_load.cpp \
            libstsound/ym_music.cpp
 
-INCLUDEPATH += $$PWD/libstsound
-
 #CONFIG += BUILD_PLUGIN_INSIDE
 contains(CONFIG, BUILD_PLUGIN_INSIDE){
     include($$PWD/../../plugins.pri)
