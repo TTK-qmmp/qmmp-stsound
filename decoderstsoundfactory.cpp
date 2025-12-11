@@ -1,6 +1,7 @@
 #include "decoderstsoundfactory.h"
 #include "decoder_stsound.h"
 #include "stsoundhelper.h"
+#include "stsoundmetadatamodel.h"
 
 #include <QMessageBox>
 
@@ -71,9 +72,8 @@ QList<TrackInfo*> DecoderStSoundFactory::createPlayList(const QString &path, Tra
 
 MetaDataModel* DecoderStSoundFactory::createMetaDataModel(const QString &path, bool readOnly)
 {
-    Q_UNUSED(path);
     Q_UNUSED(readOnly);
-    return nullptr;
+    return new StSoundMetaDataModel(path);
 }
 
 #if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)

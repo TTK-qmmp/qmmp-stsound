@@ -8,11 +8,13 @@ greaterThan(QT_MAJOR_VERSION, 5){
 
 HEADERS += decoderstsoundfactory.h \
            decoder_stsound.h \
-           stsoundhelper.h
+           stsoundhelper.h \
+           stsoundmetadatamodel.h
 
 SOURCES += decoderstsoundfactory.cpp \
            decoder_stsound.cpp \
            stsoundhelper.cpp \
+	   stsoundmetadatamodel.cpp \
            libstsound/ym_digidrum.cpp \
            libstsound/ym_lzhlib.cpp \
            libstsound/ym_2149ex.cpp \
