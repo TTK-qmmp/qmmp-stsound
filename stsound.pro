@@ -15,6 +15,7 @@ SOURCES += decoderstsoundfactory.cpp \
            decoder_stsound.cpp \
            stsoundhelper.cpp \
 	   stsoundmetadatamodel.cpp \
+           libstsound/ym_stsoundlibrary.cpp \
            libstsound/ym_digidrum.cpp \
            libstsound/ym_lzhlib.cpp \
            libstsound/ym_2149ex.cpp \

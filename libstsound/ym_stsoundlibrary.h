@@ -34,9 +34,8 @@
 *
 -----------------------------------------------------------------------------*/
 
-
-#ifndef __STSOUNDLIBRARY__
-#define __STSOUNDLIBRARY__
+#ifndef YM_STSOUNDLIBRARY_H
+#define YM_STSOUNDLIBRARY_H
 
 #include "ym_types.h"
 
@@ -60,6 +59,7 @@ extern "C"
 
 // Create object
 extern	YMMUSIC *		ymMusicCreate();
+extern  YMMUSIC *		ymMusicCreateWithRate(ymint rate);
 
 // Release object
 extern	void			ymMusicDestroy(YMMUSIC *pMusic);
@@ -75,7 +75,7 @@ extern	ymbool			ymMusicCompute(YMMUSIC *pMusic,ymsample *pBuffer,ymint nbSample)
 
 extern	void			ymMusicSetLoopMode(YMMUSIC *pMusic,ymbool bLoop);
 extern	const char	*	ymMusicGetLastError(YMMUSIC *pMusic);
-extern	int			ymMusicGetRegister(YMMUSIC *pMusic,ymint reg);
+extern	int             ymMusicGetRegister(YMMUSIC *pMusic,ymint reg);
 extern	void			ymMusicGetInfo(YMMUSIC *pMusic,ymMusicInfo_t *pInfo);
 extern	void			ymMusicPlay(YMMUSIC *pMusic);
 extern	void			ymMusicPause(YMMUSIC *pMusic);
