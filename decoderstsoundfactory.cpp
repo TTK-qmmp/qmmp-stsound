@@ -93,7 +93,9 @@ void DecoderStSoundFactory::showAbout(QWidget *parent)
 {
     QMessageBox::about(parent, tr("About YM Reader Plugin"),
                        tr("Qmmp YM Reader Plugin") + "\n" +
-                       tr("Written by: Greedysky <greedysky@163.com>"));
+                       tr("Written by: Greedysky <greedysky@163.com>") + "\n" +
+                       tr("Based on the source code from the ST-Sound") + "\n" +
+                       tr("Written by Arnaud Carré (C) 2020"));
 }
 
 QString DecoderStSoundFactory::translation() const

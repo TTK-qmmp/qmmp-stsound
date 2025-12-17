@@ -1,5 +1,6 @@
 This is a plugin for Qmmp (1.6.0 or greater) which supports YM file.
-(ST-Sound, ATARI-ST Audio File)
+
+Based on [ST-Sound](https://github.com/arnaud-carre/StSound) (ST-Sound, ATARI-ST audio module).
 
 The following packages are required, including development headers,
 which some vendors split into separate packages:
