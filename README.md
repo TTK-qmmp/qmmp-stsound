@@ -1,4 +1,4 @@
-This is a plugin for Qmmp (1.6.0 or greater) which supports YM file.
+This is an inut plugin for Qmmp (1.6.0 or later) that supports YM files.
 
 Based on [ST-Sound](https://github.com/arnaud-carre/StSound) (ST-Sound, ATARI-ST audio module).
 
